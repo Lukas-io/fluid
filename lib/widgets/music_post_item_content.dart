@@ -1,0 +1,113 @@
+import 'package:fluid/widgets/mute_button.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+
+import '../core/assets.dart';
+import '../models/post_model.dart';
+import 'music_post_header.dart';
+
+class MusicPostItemContent extends StatelessWidget {
+  final PostModel post;
+
+  const MusicPostItemContent(this.post, {super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsetsGeometry.symmetric(vertical: 24, horizontal: 24),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          MusicPostHeader(post),
+          SizedBox(height: 20),
+          Text(
+            post.title,
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.w600,
+              fontSize: 28,
+            ),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(Icons.leaderboard, color: Colors.grey.shade600, size: 16),
+              SizedBox(width: 4),
+              Text(
+                post.views,
+                style: TextStyle(
+                  color: Colors.grey.shade600,
+                  fontSize: 12,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              Text(
+                "  •  ",
+                style: TextStyle(
+                  color: Colors.grey.shade600,
+                  fontSize: 18,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              Icon(Icons.timer_sharp, color: Colors.grey.shade600, size: 16),
+              SizedBox(width: 4),
+              Text(
+                post.duration,
+                style: TextStyle(
+                  color: Colors.grey.shade600,
+                  fontSize: 12,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ],
+          ),
+          Spacer(),
+          Stack(
+            alignment: Alignment.centerRight,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                spacing: 24,
+                children: [
+                  CircleAvatar(
+                    backgroundColor: Colors.black.withOpacity(0.4),
+                    radius: 20,
+
+                    child: SvgPicture.asset(
+                      Assets.remove,
+                      width: 20,
+                      color: Colors.grey.shade400,
+                    ),
+                  ),
+
+                  CircleAvatar(
+                    backgroundColor: Colors.white,
+                    radius: 32,
+
+                    child: SvgPicture.asset(
+                      Assets.play,
+                      width: 18,
+                      color: Colors.black,
+                    ),
+                  ),
+                  CircleAvatar(
+                    backgroundColor: Colors.black.withOpacity(0.4),
+                    radius: 20,
+
+                    child: Icon(
+                      Icons.thumb_up_off_alt_rounded,
+                      color: Colors.grey.shade400,
+                      size: 19,
+                    ),
+                  ),
+                ],
+              ),
+              if (post.video != null) MuteButton(),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}

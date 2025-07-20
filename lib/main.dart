@@ -1,4 +1,5 @@
-import 'package:fluid/home_screen.dart';
+import 'package:fluid/screens/home_screen.dart';
+import 'package:fluid/core/theme.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -12,11 +13,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-      ),
+      title: 'Fluid',
+      debugShowCheckedModeBanner: false,
+      //TODO: REMOVE THIS (TURN IT TO FALSE, MAKES YOUR POST MORE BELEIVEABLE)
+      theme: appTheme,
       home: const HomeScreen(),
     );
   }
