@@ -53,7 +53,7 @@ class _MusicPostItemBackgroundState extends State<MusicPostItemBackground> {
             // width: double.infinity,
             child: widget.post.video != null
                 ? VideoPlayer(_controller)
-                : Image.asset(widget.post.photo ?? "", fit: BoxFit.cover),
+                : Image.asset(widget.post.photo ?? "", fit: BoxFit.fitHeight),
           ),
         ),
         _buildGradient(widget.post.background),
@@ -67,7 +67,7 @@ class _MusicPostItemBackgroundState extends State<MusicPostItemBackground> {
         gradient: LinearGradient(
           begin: Alignment.bottomCenter,
           end: Alignment.center,
-          colors: [color, Colors.transparent],
+          colors: [color, color.withOpacity(0)],
         ),
       ),
     );

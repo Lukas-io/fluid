@@ -11,6 +11,7 @@ class PostModel {
   final String name;
   final String date;
   final Color background;
+  final Color? textColor;
 
   final String duration;
   final String views;
@@ -19,6 +20,7 @@ class PostModel {
   const PostModel({
     this.video,
     this.photo,
+    this.textColor,
     required this.profile,
     required this.description,
     required this.title,

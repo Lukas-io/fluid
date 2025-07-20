@@ -1,14 +1,19 @@
+import 'package:fluid/models/post_model.dart';
 import 'package:flutter/material.dart';
 
+import '../widgets/music_post_app_bar.dart';
+
 class MusicPostScreen extends StatelessWidget {
-  const MusicPostScreen({super.key});
+  final PostModel post;
+
+  const MusicPostScreen(this.post, {super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
-      extendBody: true,
-      body: Column(children: []),
+      body: CustomScrollView(
+        slivers: [SliverPersistentHeader(delegate: MusicPostAppBar(post))],
+      ),
     );
   }
 }

@@ -15,7 +15,7 @@ final List<SongModel> thirdSongs = [
 
 final List<PostModel> posts = [
   PostModel(
-    profile: Assets.profile1,
+    profile: Assets.profile3,
     video: Assets.post1,
     description:
         "The music of the 1980's remains a tribute to glorious excess and left us with some huge tunes. Celebrate them here.",
@@ -28,16 +28,17 @@ final List<PostModel> posts = [
     background: Colors.black,
   ),
   PostModel(
-    profile: Assets.profile2,
+    profile: Assets.profile3,
     photo: Assets.post2,
     description:
         "The music of the 1980's remains a tribute to glorious excess and left us with some huge tunes. Celebrate them here.",
-    title: "80s Smash Hits",
-    name: "Perfect Oldies",
+    title: "Cinematic Ambient",
+    name: "Ambient Universe",
     date: "July 2025",
     duration: "5h 35m",
     views: "9,543",
     songs: secondSongs,
+    textColor: Colors.black54,
     background: Color(0XFFEFAB25),
   ),
   PostModel(

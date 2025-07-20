@@ -5,6 +5,6 @@ class MuteButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Icon(Icons.volume_off_rounded, color: Colors.grey.shade400);
+    return Icon(Icons.volume_off_rounded, color: Colors.grey.shade500);
   }
 }

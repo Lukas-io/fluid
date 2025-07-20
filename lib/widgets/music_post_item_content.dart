@@ -1,5 +1,4 @@
 import 'package:fluid/widgets/mute_button.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -14,6 +13,8 @@ class MusicPostItemContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Color grey = Colors.grey.shade700.withOpacity(0.7);
+
     return Padding(
       padding: EdgeInsetsGeometry.symmetric(vertical: 24, horizontal: 24),
       child: Column(
@@ -24,40 +25,40 @@ class MusicPostItemContent extends StatelessWidget {
           Text(
             post.title,
             style: TextStyle(
-              color: Colors.white,
+              color: Colors.white.withOpacity(0.85),
               fontWeight: FontWeight.w600,
-              fontSize: 28,
+              fontSize: 30,
             ),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(Icons.leaderboard, color: Colors.grey.shade600, size: 16),
+              Icon(Icons.leaderboard, color: grey, size: 16),
               SizedBox(width: 4),
               Text(
                 post.views,
                 style: TextStyle(
-                  color: Colors.grey.shade600,
+                  color: grey,
                   fontSize: 12,
-                  fontWeight: FontWeight.w500,
+                  fontWeight: FontWeight.w600,
                 ),
               ),
               Text(
                 "  •  ",
                 style: TextStyle(
-                  color: Colors.grey.shade600,
+                  color: grey,
                   fontSize: 18,
                   fontWeight: FontWeight.w500,
                 ),
               ),
-              Icon(Icons.timer_sharp, color: Colors.grey.shade600, size: 16),
+              Icon(Icons.timer_sharp, color: grey, size: 16),
               SizedBox(width: 4),
               Text(
                 post.duration,
                 style: TextStyle(
-                  color: Colors.grey.shade600,
+                  color: grey,
                   fontSize: 12,
-                  fontWeight: FontWeight.w500,
+                  fontWeight: FontWeight.w600,
                 ),
               ),
             ],
@@ -71,13 +72,13 @@ class MusicPostItemContent extends StatelessWidget {
                 spacing: 24,
                 children: [
                   CircleAvatar(
-                    backgroundColor: Colors.black.withOpacity(0.4),
+                    backgroundColor: Colors.black.withOpacity(0.3),
                     radius: 20,
 
                     child: SvgPicture.asset(
                       Assets.remove,
                       width: 20,
-                      color: Colors.grey.shade400,
+                      color: Colors.grey.shade300,
                     ),
                   ),
 
@@ -92,12 +93,11 @@ class MusicPostItemContent extends StatelessWidget {
                     ),
                   ),
                   CircleAvatar(
-                    backgroundColor: Colors.black.withOpacity(0.4),
+                    backgroundColor: Colors.black.withOpacity(0.3),
                     radius: 20,
-
                     child: Icon(
                       Icons.thumb_up_off_alt_rounded,
-                      color: Colors.grey.shade400,
+                      color: Colors.grey.shade300,
                       size: 19,
                     ),
                   ),

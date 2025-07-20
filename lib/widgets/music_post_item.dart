@@ -1,3 +1,4 @@
+import 'package:fluid/screens/music_post_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../models/post_model.dart';
@@ -21,19 +22,34 @@ class MusicPostItem extends StatelessWidget {
               color: Colors.black54,
               spreadRadius: 0,
               blurRadius: 20,
-              offset: Offset(4, 8),
+              offset: Offset(0, 8),
             ),
           ],
         ),
-        child: Stack(
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(24),
+        child: GestureDetector(
+          onTap: () {
+            Navigator.of(context).push(
+              PageRouteBuilder(
+                pageBuilder: (context, animation, secondaryAnimation) =>
+                    MusicPostScreen(post),
+                transitionsBuilder:
+                    (context, animation, secondaryAnimation, child) {
+                      return child;
+                    },
+              ),
+            );
+          },
 
-              child: MusicPostItemBackground(post),
-            ),
-            MusicPostItemContent(post),
-          ],
+          child: Stack(
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(24),
+
+                child: MusicPostItemBackground(post),
+              ),
+              MusicPostItemContent(post),
+            ],
+          ),
         ),
       ),
     );

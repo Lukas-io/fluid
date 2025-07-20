@@ -14,7 +14,7 @@ class MusicPostHeader extends StatelessWidget {
     return Row(
       children: [
         Container(
-          padding: EdgeInsets.all(4.0),
+          padding: EdgeInsets.all(3.0),
           decoration: BoxDecoration(
             border: Border.all(color: Colors.white.withOpacity(0.7), width: 2),
             shape: BoxShape.circle,
@@ -31,17 +31,17 @@ class MusicPostHeader extends StatelessWidget {
             Text(
               post.name.toUpperCase(),
               style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.w600,
+                color: (post.textColor ?? Colors.white).withOpacity(0.8),
+                fontWeight: FontWeight.w800,
                 fontSize: 12,
-                letterSpacing: -0.2,
+                // letterSpacing: 1,
                 height: 0,
               ),
             ),
             Text(
               post.date,
               style: TextStyle(
-                color: Colors.grey.shade600,
+                color: Colors.grey.shade600.withOpacity(0.6),
 
                 fontSize: 10,
                 fontWeight: FontWeight.w600,
