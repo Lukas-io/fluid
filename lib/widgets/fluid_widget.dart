@@ -129,22 +129,34 @@ class _FluidWidgetState<T> extends State<FluidWidget<T?>> {
                 await Future.delayed(200.ms);
                 _animationController.reverse();
 
-                fluidContainer(context);
+                if (mounted) fluidContainer(context);
               }
             : null,
         child:
-            Material(
-                  clipBehavior: widget.clipBehavior,
-                  color: widget.color,
-                  shape: widget.closedShape,
-                  child: Builder(
-                    key: _closedBuilderKey,
-                    builder: (BuildContext _) {
-                      return widget.closedBuilder(
-                        context,
-                        () => fluidContainer(context),
-                      );
-                    },
+            Container(
+                  decoration: BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black54,
+                        spreadRadius: 0,
+                        blurRadius: 20,
+                        offset: Offset(0, 8),
+                      ),
+                    ],
+                  ),
+                  child: Material(
+                    clipBehavior: widget.clipBehavior,
+                    color: widget.color,
+                    shape: widget.closedShape,
+                    child: Builder(
+                      key: _closedBuilderKey,
+                      builder: (BuildContext _) {
+                        return widget.closedBuilder(
+                          context,
+                          () => fluidContainer(context),
+                        );
+                      },
+                    ),
                   ),
                 )
                 .animate(
@@ -155,7 +167,7 @@ class _FluidWidgetState<T> extends State<FluidWidget<T?>> {
                 )
                 .scale(
                   begin: Offset(1, 1),
-                  end: Offset(0.95, 0.95),
+                  end: Offset(0.9, 0.9),
                   duration: 300.ms,
                   curve: Sprung(32),
                 ),

@@ -62,18 +62,9 @@ class _MusicPostItemAnimatedState extends State<_MusicPostItemAnimated> {
   Widget build(BuildContext context) {
     return AspectRatio(
       aspectRatio: 0.82,
-      child: Container(
-        margin: EdgeInsetsGeometry.symmetric(horizontal: 24, vertical: 12),
-        decoration: BoxDecoration(
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black54,
-              spreadRadius: 0,
-              blurRadius: 20,
-              offset: Offset(0, 8),
-            ),
-          ],
-        ),
+      child: Padding(
+        padding: EdgeInsetsGeometry.symmetric(horizontal: 24, vertical: 12),
+
         child: FluidWidget(
           transitionType: ContainerTransitionType.fadeThrough,
           transitionDuration: Duration(milliseconds: 500),
