@@ -2,9 +2,11 @@ import 'package:animations/animations.dart';
 import 'package:fluid/core/fluid_page_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sprung/sprung.dart';
 
 import '../core/hide_able.dart';
+import '../cubit/post_cubit.dart';
 
 @optionalTypeArgs
 class FluidWidget<T extends Object?> extends StatefulWidget {
@@ -87,7 +89,7 @@ class _FluidWidgetState<T> extends State<FluidWidget<T?>> {
 
   late AnimationController _animationController;
 
-  Future<void> fluidContainer() async {
+  Future<void> fluidContainer(context) async {
     final Color color = widget.color ?? Theme.of(context).canvasColor;
     final T? data =
         await Navigator.of(
@@ -121,11 +123,13 @@ class _FluidWidgetState<T> extends State<FluidWidget<T?>> {
       child: GestureDetector(
         onTap: widget.tappable
             ? () async {
+                context.read<PostCubit>().hideHeader();
+
                 _animationController.forward();
                 await Future.delayed(200.ms);
                 _animationController.reverse();
 
-                fluidContainer();
+                fluidContainer(context);
               }
             : null,
         child:
@@ -135,8 +139,11 @@ class _FluidWidgetState<T> extends State<FluidWidget<T?>> {
                   shape: widget.closedShape,
                   child: Builder(
                     key: _closedBuilderKey,
-                    builder: (BuildContext context) {
-                      return widget.closedBuilder(context, fluidContainer);
+                    builder: (BuildContext _) {
+                      return widget.closedBuilder(
+                        context,
+                        () => fluidContainer(context),
+                      );
                     },
                   ),
                 )

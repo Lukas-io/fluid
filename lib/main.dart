@@ -1,9 +1,12 @@
+import 'package:fluid/cubit/post_cubit.dart';
 import 'package:fluid/screens/home_screen.dart';
 import 'package:fluid/core/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 
 void main() {
   runApp(const MyApp());
+  initializeDependencies();
 }
 
 class MyApp extends StatelessWidget {
@@ -19,4 +22,10 @@ class MyApp extends StatelessWidget {
       home: const HomeScreen(),
     );
   }
+}
+
+final sl = GetIt.instance;
+
+Future<void> initializeDependencies() async {
+  sl.registerSingleton<PostCubit>(PostCubit());
 }
