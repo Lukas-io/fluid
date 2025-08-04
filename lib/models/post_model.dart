@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:fluid/models/song_model.dart';
 
 class PostModel {
+  final String? id;
   final String? video;
   final String? photo;
   final String profile;
@@ -11,7 +12,7 @@ class PostModel {
   final String name;
   final String date;
   final Color background;
-  final Color? textColor;
+  final bool invertTextColor;
 
   final String duration;
   final String views;
@@ -20,7 +21,8 @@ class PostModel {
   const PostModel({
     this.video,
     this.photo,
-    this.textColor,
+    this.invertTextColor = false,
+    required this.id,
     required this.profile,
     required this.description,
     required this.title,

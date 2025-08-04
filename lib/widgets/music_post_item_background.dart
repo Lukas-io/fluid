@@ -1,73 +1,49 @@
 import 'package:fluid/models/post_model.dart';
+import 'package:fluid/widgets/bottom_gradient_overlay.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
-class MusicPostItemBackground extends StatefulWidget {
+class MusicPostItemBackground extends StatelessWidget {
   final PostModel post;
+  final double height;
+  final Offset translate;
+  final bool showColor;
+  final VideoPlayerController? controller;
 
-  const MusicPostItemBackground(this.post, {super.key});
-
-  @override
-  State<MusicPostItemBackground> createState() =>
-      _MusicPostItemBackgroundState();
-}
-
-class _MusicPostItemBackgroundState extends State<MusicPostItemBackground> {
-  late VideoPlayerController _controller;
-
-  @override
-  void initState() {
-    super.initState();
-
-    if (widget.post.video != null) {
-      WidgetsBinding.instance.deferFirstFrame();
-      _controller = VideoPlayerController.asset(widget.post.video!)
-        ..setLooping(true)
-        ..setVolume(0);
-
-      _controller.initialize().then((_) {
-        _controller.play();
-        WidgetsBinding.instance.allowFirstFrame();
-        setState(() {});
-      });
-    }
-  }
-
-  @override
-  void dispose() {
-    if (widget.post.video != null) _controller.dispose();
-    super.dispose();
-  }
+  const MusicPostItemBackground(
+    this.post, {
+    super.key,
+    this.height = 280,
+    this.translate = Offset.zero,
+    required this.controller,
+    this.showColor = true,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Container(
-          color: widget.post.background,
-
-          alignment: Alignment.bottomCenter,
-          child: SizedBox(
-            height: 300,
-
-            // width: double.infinity,
-            child: widget.post.video != null
-                ? VideoPlayer(_controller)
-                : Image.asset(widget.post.photo ?? "", fit: BoxFit.fitHeight),
-          ),
-        ),
-        _buildGradient(widget.post.background),
-      ],
-    );
-  }
-
-  Widget _buildGradient(Color color) {
+    final color = showColor ? post.background : Colors.transparent;
     return Container(
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.bottomCenter,
-          end: Alignment.center,
-          colors: [color, color.withOpacity(0)],
+      color: color,
+      alignment: Alignment.bottomCenter,
+      child: SizedBox(
+        height: height,
+        child: Hero(
+          tag: "${post.id}${post.video ?? post.photo}",
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(24),
+            child: Stack(
+              alignment: Alignment.bottomCenter,
+              children: [
+                Transform.translate(
+                  offset: translate,
+                  child: post.video != null
+                      ? VideoPlayer(controller!)
+                      : Image.asset(post.photo ?? "", fit: BoxFit.fitHeight),
+                ),
+                BottomGradientOverlay(color),
+              ],
+            ),
+          ),
         ),
       ),
     );

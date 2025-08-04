@@ -22,46 +22,67 @@ class MusicPostItemContent extends StatelessWidget {
         children: [
           MusicPostHeader(post),
           SizedBox(height: 20),
-          Text(
-            post.title,
-            style: TextStyle(
-              color: Colors.white.withOpacity(0.85),
-              fontWeight: FontWeight.w600,
-              fontSize: 30,
+          Hero(
+            tag: "${post.id}${post.title}",
+            child: Material(
+              type: MaterialType.transparency,
+              child: Container(
+                alignment: Alignment.center,
+                width: 310,
+
+                child: Text(
+                  post.title,
+                  style: TextStyle(
+                    color: Colors.white.withOpacity(0.85),
+                    fontWeight: FontWeight.w600,
+                    fontSize: 30,
+                  ),
+                ),
+              ),
             ),
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(Icons.leaderboard, color: grey, size: 16),
-              SizedBox(width: 4),
-              Text(
-                post.views,
-                style: TextStyle(
-                  color: grey,
-                  fontSize: 12,
-                  fontWeight: FontWeight.w600,
+          Hero(
+            tag: "${post.id}${post.views}",
+            child: Material(
+              type: MaterialType.transparency,
+              child: Container(
+                alignment: Alignment.center,
+                width: 300,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(Icons.leaderboard, color: grey, size: 16),
+                    SizedBox(width: 4),
+                    Text(
+                      post.views,
+                      style: TextStyle(
+                        color: grey,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    Text(
+                      "  •  ",
+                      style: TextStyle(
+                        color: grey,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    Icon(Icons.timer_sharp, color: grey, size: 16),
+                    SizedBox(width: 4),
+                    Text(
+                      post.duration,
+                      style: TextStyle(
+                        color: grey,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ],
                 ),
               ),
-              Text(
-                "  •  ",
-                style: TextStyle(
-                  color: grey,
-                  fontSize: 18,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-              Icon(Icons.timer_sharp, color: grey, size: 16),
-              SizedBox(width: 4),
-              Text(
-                post.duration,
-                style: TextStyle(
-                  color: grey,
-                  fontSize: 12,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            ],
+            ),
           ),
           Spacer(),
           Stack(
@@ -71,39 +92,84 @@ class MusicPostItemContent extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 spacing: 24,
                 children: [
-                  CircleAvatar(
-                    backgroundColor: Colors.black.withOpacity(0.3),
-                    radius: 20,
+                  Expanded(
+                    child: Hero(
+                      tag: "${post.id} button5",
+                      child: Opacity(
+                        opacity: 0,
+                        child: CircleAvatar(
+                          backgroundColor: Colors.black.withOpacity(0.3),
+                          radius: 20,
+                          child: Icon(
+                            Icons.download,
+                            color: Colors.grey.shade300,
+                            size: 24,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Hero(
+                    tag: "${post.id} button1",
+                    child: CircleAvatar(
+                      backgroundColor: Colors.black.withOpacity(0.3),
+                      radius: 20,
 
-                    child: SvgPicture.asset(
-                      Assets.remove,
-                      width: 20,
-                      color: Colors.grey.shade300,
+                      child: SvgPicture.asset(
+                        Assets.remove,
+                        width: 20,
+                        color: Colors.grey.shade300,
+                      ),
                     ),
                   ),
 
-                  CircleAvatar(
-                    backgroundColor: Colors.white,
-                    radius: 32,
+                  Hero(
+                    tag: "${post.id} button2",
+                    child: CircleAvatar(
+                      backgroundColor: Colors.white,
+                      radius: 32,
 
-                    child: SvgPicture.asset(
-                      Assets.play,
-                      width: 18,
-                      color: Colors.black,
+                      child: SvgPicture.asset(
+                        Assets.play,
+                        width: 18,
+                        color: Colors.black,
+                      ),
                     ),
                   ),
-                  CircleAvatar(
-                    backgroundColor: Colors.black.withOpacity(0.3),
-                    radius: 20,
-                    child: Icon(
-                      Icons.thumb_up_off_alt_rounded,
-                      color: Colors.grey.shade300,
-                      size: 19,
+                  Hero(
+                    tag: "${post.id} button3",
+                    child: CircleAvatar(
+                      backgroundColor: Colors.black.withOpacity(0.3),
+                      radius: 20,
+                      child: Icon(
+                        Icons.thumb_up_off_alt_rounded,
+                        color: Colors.grey.shade300,
+                        size: 19,
+                      ),
+                    ),
+                  ),
+
+                  Expanded(
+                    child: Hero(
+                      tag: "${post.id} button4",
+                      child: Opacity(
+                        opacity: 0,
+                        child: CircleAvatar(
+                          backgroundColor: Colors.black.withOpacity(0.3),
+                          radius: 20,
+                          child: SvgPicture.asset(
+                            Assets.details,
+                            width: 20,
+                            color: Colors.grey.shade300,
+                          ),
+                        ),
+                      ),
                     ),
                   ),
                 ],
               ),
-              if (post.video != null) MuteButton(),
+              if (post.video != null)
+                Hero(tag: "${post.id}mute", child: MuteButton()),
             ],
           ),
         ],

@@ -1,10 +1,10 @@
 class SongModel {
-  final String name;
+  final String title;
   final String artist;
   final String cover;
 
   const SongModel({
-    required this.name,
+    required this.title,
     required this.artist,
     required this.cover,
   });

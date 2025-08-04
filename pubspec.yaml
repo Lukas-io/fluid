@@ -39,6 +39,7 @@ dependencies:
   flutter_animate: ^4.5.2
   flutter_bloc: ^9.1.1
   flutter_svg: ^2.2.0
+  animations: ^2.0.11
 
 dev_dependencies:
   flutter_test:
@@ -68,6 +69,7 @@ flutter:
     - assets/svg/
     - assets/profile/
     - assets/post/
+    - assets/song/
     #   - images/a_dot_ham.jpeg
 
     # An image asset can refer to one or more resolution-specific "variants", see
