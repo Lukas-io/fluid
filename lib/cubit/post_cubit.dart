@@ -1,11 +1,11 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-enum PostTriggerState { none, togglePlayer, toggleSound }
+enum PostTriggerState { show, hide }
 
 class PostCubit extends Cubit<PostTriggerState> {
-  PostCubit() : super(PostTriggerState.none);
+  PostCubit() : super(PostTriggerState.show);
 
-  void togglePlayer() => emit(PostTriggerState.togglePlayer);
+  void showHeader() => emit(PostTriggerState.show);
 
-  void toggleSound() => emit(PostTriggerState.toggleSound);
+  void hideHeader() => emit(PostTriggerState.hide);
 }

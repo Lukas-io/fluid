@@ -3,7 +3,10 @@ import 'package:fluid/widgets/music_post_app_bar_content.dart';
 import 'package:fluid/widgets/music_post_item_background.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:video_player/video_player.dart';
+
+import '../cubit/post_cubit.dart';
 
 class MusicPostAppBar extends SliverPersistentHeaderDelegate {
   final PostModel post;
@@ -61,7 +64,11 @@ class MusicPostAppBar extends SliverPersistentHeaderDelegate {
             MusicPostAppBarContent(post, shrinkOffset: shrinkOffset),
 
             IconButton(
-              onPressed: () => Navigator.pop(context),
+              onPressed: () {
+                context.read<PostCubit>().showHeader();
+
+                Navigator.pop(context);
+              },
               icon: Icon(
                 Icons.arrow_back_ios_new,
                 color: CupertinoColors.white,
