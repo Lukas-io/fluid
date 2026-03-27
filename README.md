@@ -15,9 +15,7 @@ animations. Most people just pick one or the other. I took
 
 ## 📱 Demo
 
-<p align="center">
 ![fluid-demo-v3](https://github.com/user-attachments/assets/98c4bf4d-21b6-463b-b87b-12ca0315bea5)
-</p>
 
 ---
 
