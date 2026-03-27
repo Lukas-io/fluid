@@ -1,80 +1,119 @@
 # Fluid
 
-A Flutter music app demo showcasing fluid animations and some cool technical solutions I figured out.
+A motion experiment. Nothing more, nothing less. 🌊
 
 ## What's This?
 
-Just a demo app I built to explore fluid motion designs in Flutter. It's got some nice animations, music post interactions, and I solved an interesting technical challenge along the way.
+A Flutter music feed demo I built to push the animation system as far
+as it would go. Fluid page transitions, Hero animations, collapsing
+headers, spring physics — all working together.
+
+But the real reason this exists: I kept hitting a wall with Flutter's
+`OpenContainer`. It uses `ModalRoute`, which completely blocks `Hero`
+animations. Most people just pick one or the other. I took
+`OpenContainer` apart instead.
 
 ## The Cool Technical Bit
 
-**The main thing I'm proud of**: I restructured the OpenContainer from the `animations` package to work with Hero widgets. 
+Flutter's `OpenContainer` and `Hero` are architecturally incompatible
+out of the box — `OpenContainer` runs on `ModalRoute`, and `Hero` only
+works across `PageRoute` transitions. You genuinely cannot use them
+together without modifying something.
 
-Here's what I did:
-- The original OpenContainer uses a ModalRoute, but I needed it to work with my custom `FluidPageRoute`
-- I basically took the OpenContainer code and modified it to use a PageRoute instead of ModalRoute
-- This enabled Hero animations to work seamlessly with the OpenContainer animations
+So I rebuilt `OpenContainer` from scratch as `FluidWidget`, backed by
+a custom `FluidPageRoute` that extends `PageRoute` instead. Now you
+get both: shape-morphing container transitions *and* Hero animations
+firing across the same route boundary.
 
-Check out `FluidWidget` in the code - it's basically OpenContainer but restructured. The key change was switching from ModalRoute to PageRoute in the route configuration.
+The transition pipeline:
 
-**Why this matters**: Without this restructuring, you can't use Hero widgets with OpenContainer animations. Now you get both smooth page transitions AND Hero animations working together.
+1. `FluidWidget` captures the card's position and shape on tap
+2. A spring scale-down plays (`Sprung` curve), then `FluidPageRoute`
+   is pushed
+3. The route simultaneously morphs shape (`ShapeBorderTween`),
+   position (`RectTween`), and opacity (`FlippableTweenSequence`)
+4. Hero widgets animate freely — background, title, avatar, buttons,
+   all of them — because we're on a real `PageRoute`
+5. `HideAble` keeps the source card's space reserved in the list
+   without rendering it, so there's no layout jump
 
-## Running This Thing
+`FlippableTweenSequence` is a small thing I'm proud of too — it
+reverses the tween weight order on pop, so mid-animation interrupts
+(the user swiping back immediately) play correctly without defining
+two separate sequences.
 
-### Prerequisites
-- Flutter SDK
-- **iPhone 16 Simulator** (read the important note below)
+Key files if you want to dig in:
 
-### Quick Start
-```bash
-git clone <repo>
-cd fluid
-flutter pub get
-flutter run
-```
+- `lib/widgets/fluid_widget.dart` — the rebuilt OpenContainer
+- `lib/core/fluid_page_route.dart` — shape + fade route transitions
+- `lib/core/flippable_tween_sequence.dart` — reversible tween sequences
+- `lib/core/hide_able.dart` — visibility during transitions
 
-## ⚠️ Important: Use iPhone 16 Simulator
+## ⚠️ iPhone 16 Simulator Only
 
-**This is just a demo and I was too lazy to make it responsive.** 
+I was too lazy to make it responsive. The UI is sized for iPhone 16
+and it'll look off on anything else. This is a motion experiment,
+not a product — responsive layout wasn't the point.
 
-The UI is hardcoded for iPhone 16 dimensions. If you run it on anything else, it'll probably look weird or broken. Don't expect responsive design - this is purely a demo/prototype.
+## The Asset Struggle Was Real
 
-## What's Inside
-
-- **Fluid animations** with custom page routes
-- **Hero widget transitions** (thanks to that OpenContainer restructuring)
-- **Music post interface** with video/audio
-- **Custom app bars** with gradient overlays
-- **State management** with Cubit
-
-## The Asset Struggle is Real
-
-**PSA**: I spent way too long finding and editing all the images and videos in the `assets/` folder. Who knew it's so hard to find and edit images nowadays? 😅 The music covers, profile pics, and video content took forever to source and format properly.
-
-## Project Structure
-```
-lib/
-├── core/           # Theme, assets, custom page routes
-├── cubit/          # State management
-├── models/         # Data models
-├── screens/        # Main screens
-└── widgets/        # UI components (including that FluidWidget)
-```
-
-## Key Files to Check Out
-
-- `lib/widgets/fluid_widget.dart` - The restructured OpenContainer
-- `lib/core/fluid_page_route.dart` - Custom page route for smooth transitions
-- `lib/widgets/music_post_item.dart` - Hero animations in action
+I spent way too long sourcing and editing everything in `assets/`.
+Music covers, profile pictures, video backgrounds — who knew it'd be
+this hard to find decent assets in 2025. You're welcome. 😅
 
 ## Tech Stack
 
-- Flutter
-- Bloc/Cubit for state management
-- Custom animations package (modified)
-- Hero widgets
-- Custom fonts
+- **Framework**: Flutter (SDK ^3.8.0)
+- **Spring physics**: sprung — scale-down tap feedback and slide-ins
+- **Animations**: flutter_animate (supplementary, declarative chains)
+- **State**: flutter_bloc (just Cubit — coordinates header visibility
+  between screens)
+- **DI**: get_it — shares one PostCubit instance across both screens
+- **Video**: video_player — looped, muted background video on cards
+- **Icons**: flutter_svg — all custom icons are SVG assets
+
+## Project Structure
+
+```
+lib/
+├── core/           # The real work lives here — FluidPageRoute,
+│                   # FlippableTweenSequence, HideAble
+├── cubit/          # PostCubit — show/hide header state
+├── models/         # Post, Song, mock data
+├── screens/        # Home feed + detail screen
+└── widgets/        # FluidWidget + everything else
+```
+
+## Known Limitations
+
+Demo code is honest code:
+
+- Song list items do nothing on tap — no audio wired up
+- The mute button is cosmetic — there's no audio engine
+- Video only plays on feed cards, not in the detail screen
+- Everything is hardcoded mock data — no API, no persistence
+- `animations` package is listed as a dependency but barely used —
+  it was the reference before I replaced it
+
+## Installation
+
+```bash
+git clone https://github.com/Lukas-io/fluid.git
+cd fluid
+flutter pub get
+
+# iOS
+cd ios && pod install && cd ..
+flutter run
+```
+
+iPhone 16 simulator recommended.
+
+## Gotchas
+
+- The `animations` package is there but don't use its `OpenContainer`
+  with Hero — that's the whole problem this project solves
 
 ---
 
-**Bottom line**: This is a demo showcasing fluid animations and solving the OpenContainer + Hero widget challenge. Use iPhone 16 simulator, don't expect responsive design, and check out that FluidWidget if you're curious about the technical solution! 🚀
+**Fluid** — motion, not decoration.
