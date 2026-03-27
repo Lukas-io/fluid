@@ -13,6 +13,27 @@ But the real reason this exists: I kept hitting a wall with Flutter's
 animations. Most people just pick one or the other. I took
 `OpenContainer` apart instead.
 
+## 📱 Demo
+
+<p align="center">
+  <img src="assets/screenshots/demo.gif" width="280" />
+</p>
+
+---
+
+## Screenshots
+
+<div style="
+  overflow-x: auto;
+  white-space: nowrap;
+  padding-bottom: 10px;
+  scroll-behavior: smooth;
+">
+  <img src="https://github.com/user-attachments/assets/d4b05c45-4a7e-4195-95e0-93b754189ad8" alt="Screen 1" style="width: 250px; height: auto; margin-right: 8px; border-radius: 8px;" />
+  <img src="https://github.com/user-attachments/assets/85f4850d-b756-4e6e-b2f8-2b460ddb9100" alt="Screen 2" style="width: 250px; height: auto; margin-right: 8px; border-radius: 8px;" />
+  <img src="https://github.com/user-attachments/assets/8f4f7e22-9168-47a8-a632-5c878bf88a89" alt="Screen 3" style="width: 250px; height: auto; margin-right: 8px; border-radius: 8px;" />
+</div>
+
 ## The Cool Technical Bit
 
 Flutter's `OpenContainer` and `Hero` are architecturally incompatible
